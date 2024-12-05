@@ -9,10 +9,10 @@ description: >-
 ### Deposit
 
 ```solidity
-function deposit(uint256 tokens, address player) public
+function deposit(uint256 tokens, address signer, address player) public
 ```
 
-The user's **Wallet** may sign a transaction once in order to deposit tokens into the **Registry** by defining the **Player** as delegate. This allows the user to control their funds at all times, while only having to sign transactions during deposits and withdrawals. That is a key UX element of the onboarding workflow described here. The **Player** delegation will then also prove that the **Wallet** and the **Player** are controlled by the same entity, as soon as the **Player** signs a transaction to enter a new game. The tokens deposited here become the user's available balance within the **Registry** smart contract. The **Player** is authorized to enter games with that available balance, but only on behalf of the user's **Wallet**. The **Player** will never be able to withdraw user funds from the **Registry**.
+The user's **Wallet** may sign a transaction once in order to deposit tokens into the **Registry** by defining the **Signer** and **Player** addresses as delegates. A dedicated contract write for depositing an available balance allows the user to control their funds at all times, while further game related functionality is delegated to the **Player**. The **Signer** definition and **Player** delegation will later prove that the **Wallet**, the **Signer** and the **Player** are controlled by the same entity. The tokens deposited here become the user's available balance within the **Registry** smart contract. The **Player** is authorized to enter games using that available balance, but only on behalf of the user's **Wallet**. Neither the **Signer** nor the **Player** will never be able to withdraw user funds from the **Registry**.
 
 ### Request
 
