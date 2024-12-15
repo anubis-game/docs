@@ -35,14 +35,21 @@ new WebSocket(
 
 ### Signing
 
-For the two required signatures to be considered valid during the dual-handshake, the following criteria must be met. Note that the **Guardian** will access several request specific parameters using the transaction hash provided during the WebSocket authorization process. This applies to the game ID, the unix timestamp, the **Guardian** address and the **Player** address.
+For the two required signatures to be considered valid during the dual-handshake, the following criteria must be met.
 
 * The signed message must be an ordered hyphen joined string.&#x20;
 * The first element must either be the string "request" or "connect" respectively.
 * The second element must be the desired **Guardian** address.
-* The third element must be a valid unix timestamp, which must not be in the future, and must not be older than 60 seconds at the time of requesting game participation.
+* The third element must be a valid unix timestamp.
 * The fourth element must be the associated **Player** address.
-* The provided signatures must both recover to the same associated **Signer** address.
+* The **Signer** addresses recovered from both signatures must match one another.
+
+Note that the **Guardian** will access several request specific parameters using the transaction hash provided during the WebSocket authorization process.
+
+* The **Guardian** address will be taken from the onchain transaction data. The address found will be used to reconstruct the messages of the associated signatures. This address must also match the address of the **Guardian** facilitating the WebSocket connection of the requested game.
+* The **Wallet** address will be taken from the onchain transaction data. The address found will identify the user requesting to play the game.
+* The **Player** address will be taken from the onchain transaction sender. The address found will be used to reconstruct the messages of the associated signatures.
+* The unix timestamp will be taken from the onchain transaction data. This timestamp must not be in the future, and must not be older than 60 seconds at the time of requesting game participation.
 
 ```typescript
 await signMessage(`request-${grd}-${tim}-${pla}`); // Registry request onchain
