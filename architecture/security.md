@@ -49,7 +49,7 @@ Note that the **Guardian** will access several request specific parameters using
 * The **Guardian** address will be taken from the onchain transaction data. The address found will be used to reconstruct the messages of the associated signatures. This address must also match the address of the **Guardian** facilitating the WebSocket connection of the requested game.
 * The **Wallet** address will be taken from the onchain transaction data. The address found will identify the user requesting to play the game.
 * The **Player** address will be taken from the onchain transaction sender. The address found will be used to reconstruct the messages of the associated signatures.
-* The unix timestamp will be taken from the onchain transaction data. This timestamp must not be in the future, and must not be older than 60 seconds at the time of requesting game participation.
+* The unix timestamp will be taken from the onchain transaction data. This timestamp must not be farther in the future than 60 seconds, and must not be older than 60 seconds at the time of requesting game participation.
 
 ```typescript
 await signMessage(`request-${tim}-${wal}`);        // Registry deposit onchain
